@@ -17,6 +17,14 @@ services:
     volumes:
       - redis_data:/data
 
+  localstack:
+    image: localstack/localstack:3.8
+    ports:
+      - "4566:4566"
+    environment:
+      - SERVICES=sqs
+      - DEFAULT_REGION=us-east-1
+
 volumes:
   postgres_data:
   redis_data:
