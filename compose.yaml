@@ -24,6 +24,23 @@ services:
     environment:
       - SERVICES=sqs
       - DEFAULT_REGION=us-east-1
+  
+  directus:
+    image: directus/directus:11
+    ports:
+      - "8055:8055"
+    environment:
+      SECRET: "supersecret"
+      ADMIN_EMAIL: "admin@example.com"
+      ADMIN_PASSWORD: "admin123"
+      DB_CLIENT: "pg"
+      DB_HOST: "postgres"
+      DB_PORT: "5432"
+      DB_DATABASE: "mini_park"
+      DB_USER: "medusa"
+      DB_PASSWORD: "medusa"
+    depends_on:
+      - postgres
 
 volumes:
   postgres_data:
