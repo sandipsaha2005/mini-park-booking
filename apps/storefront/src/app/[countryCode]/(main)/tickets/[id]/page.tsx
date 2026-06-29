@@ -25,6 +25,8 @@ export default async function TicketDetailPage({ params }: Props) {
     retrieveCustomer().catch(() => null),
   ])
 
+  console.log({ ticket });
+  
   if (!ticket) return notFound()
 
   const parkCount = ticket.parks?.length || 0

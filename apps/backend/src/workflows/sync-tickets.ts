@@ -23,12 +23,10 @@ const fetchTicketsFromDirectus = createStep(
           "price",
           "available_quantity",
           "status",
-          { parks: [{ parks_id: ["id"] }] },
+          { park_ids: [{ parks_id: ["id"] }] },
         ] as any,
       }),
     );
-
-    console.log({ tickets });
 
     console.log(`📥 Fetched ${tickets.length} tickets from Directus`);
     return new StepResponse({ tickets });
@@ -46,10 +44,10 @@ const upsertTicketsInMedusaStep = createStep(
     const results: { action: string; id: string }[] = [];
 
     for (const ticket of input.tickets) {
-      console.log({ ticket });
+      console.log(ticket.park_ids);
 
-      const directusParkIds: string[] = (ticket.parks || [])
-        .map((rel: any) => rel?.parks_id?.id || rel?.parks_id)
+      const directusParkIds: string[] = (ticket.park_ids || [])
+        .map((rel: any) => rel?.parks_id?.id)
         .filter(Boolean)
         .map(String);
 
