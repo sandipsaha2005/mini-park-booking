@@ -1,7 +1,12 @@
-import { SQSClient, ReceiveMessageCommand, DeleteMessageCommand, MessageSystemAttributeNameForSends } from "@aws-sdk/client-sqs"
+import {
+    SQSClient,
+    ReceiveMessageCommand,
+    DeleteMessageCommand,
+    MessageSystemAttributeNameForSends
+} from "@aws-sdk/client-sqs";
 
-import * as dotenv from "dotenv"
-dotenv.config()
+import * as dotenv from "dotenv";
+dotenv.config();
 
 const sqsClient = new SQSClient({
     region: process.env.AWS_REGION || "us-east-1",
@@ -10,9 +15,9 @@ const sqsClient = new SQSClient({
         accessKeyId: process.env.AWS_ACCESS_KEY_ID || "test",
         secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY || "test",
     },
-})
+});
 
-const QUEUE_URL = process.env.SQS_QUEUE_URL!
+const QUEUE_URL = process.env.SQS_QUEUE_URL!;
 
 const processMessage = async (body: string, receiptHandle: string) => {
     const message = JSON.parse(body);
@@ -34,21 +39,21 @@ const processMessage = async (body: string, receiptHandle: string) => {
 
 const poll = async () => {
     console.log("Poller started");
-    
+
     while (true) {
         const { Messages } = await sqsClient.send(new ReceiveMessageCommand({
             QueueUrl: QUEUE_URL,
             MaxNumberOfMessages: 5,
             WaitTimeSeconds: 10,
-        }))
+        }));
 
         if (Messages) {
-            await Promise.all(Messages.map(msg => processMessage(msg.Body!, msg.ReceiptHandle!)))
-        }
-    }
-}
+            await Promise.all(Messages.map(msg => processMessage(msg.Body!, msg.ReceiptHandle!)));
+        };
+    };
+};
 
 poll().catch(err => {
     console.error("Error in booking worker:", err);
     process.exit(1);
-})
+});

@@ -38,6 +38,22 @@
           "enumItems": [],
           "mappedType": "text"
         },
+        "directus_id": {
+          "name": "directus_id",
+          "type": "text",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "unique": false,
+          "length": null,
+          "precision": null,
+          "scale": null,
+          "default": null,
+          "comment": null,
+          "enumItems": [],
+          "mappedType": "text"
+        },
         "price": {
           "name": "price",
           "type": "integer",
@@ -70,22 +86,6 @@
           "enumItems": [],
           "mappedType": "integer"
         },
-        "visit_date": {
-          "name": "visit_date",
-          "type": "timestamptz",
-          "unsigned": false,
-          "autoincrement": false,
-          "primary": false,
-          "nullable": false,
-          "unique": false,
-          "length": 6,
-          "precision": null,
-          "scale": null,
-          "default": null,
-          "comment": null,
-          "enumItems": [],
-          "mappedType": "datetime"
-        },
         "status": {
           "name": "status",
           "type": "text",
@@ -103,6 +103,41 @@
             "active",
             "sold_out",
             "cancelled"
+          ],
+          "mappedType": "enum"
+        },
+        "park_ids": {
+          "name": "park_ids",
+          "type": "jsonb",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "unique": false,
+          "length": null,
+          "precision": null,
+          "scale": null,
+          "default": "'[]'",
+          "comment": null,
+          "enumItems": [],
+          "mappedType": "json"
+        },
+        "ticket_type": {
+          "name": "ticket_type",
+          "type": "text",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "unique": false,
+          "length": null,
+          "precision": null,
+          "scale": null,
+          "default": "'single'",
+          "comment": null,
+          "enumItems": [
+            "single",
+            "combo"
           ],
           "mappedType": "enum"
         },
@@ -158,6 +193,15 @@
       "name": "ticket",
       "schema": "public",
       "indexes": [
+        {
+          "keyName": "IDX_ticket_directus_id_unique",
+          "columnNames": [],
+          "composite": false,
+          "constraint": false,
+          "primary": false,
+          "unique": false,
+          "expression": "CREATE UNIQUE INDEX IF NOT EXISTS \"IDX_ticket_directus_id_unique\" ON \"ticket\" (\"directus_id\") WHERE deleted_at IS NULL"
+        },
         {
           "keyName": "IDX_ticket_deleted_at",
           "columnNames": [],

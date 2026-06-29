@@ -21,6 +21,7 @@
     "test:unit": "TEST_TYPE=unit NODE_OPTIONS=--experimental-vm-modules jest --silent --runInBand --forceExit"
   },
   "dependencies": {
+    "@asteasolutions/zod-to-openapi": "^8.1.0",
     "@aws-sdk/client-sqs": "^3.1073.0",
     "@directus/sdk": "^22.0.0",
     "@medusajs/admin-sdk": "2.15.5",
@@ -36,6 +37,7 @@
     "dotenv": "^16.6.1",
     "react-i18next": "13.5.0",
     "react-router-dom": "6.30.3",
+    "swagger-ui-dist": "^5.28.0",
     "zod": "^4.2.0"
   },
   "devDependencies": {

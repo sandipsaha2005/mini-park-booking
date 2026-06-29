@@ -29,7 +29,7 @@ const upsertParksInMedusaStep = createStep(
     async (input: { parks: any[] }, context) => {
         const parkService = context.container.resolve<ParkModuleService>(PARK_MODULE);
 
-        const results = [];
+        const results: { action: string; id: string }[] = [];
         for (const park of input.parks) {
 
             const existing = await parkService.listParks({

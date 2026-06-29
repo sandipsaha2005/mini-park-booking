@@ -16,6 +16,7 @@ module.exports = defineConfig({
   },
   modules: [
     { resolve: "./src/modules/ticket" },
-    { resolve: "./src/modules/park" }
+    { resolve: "./src/modules/park" },
+    { resolve: "./src/modules/booking" },
   ],
 })

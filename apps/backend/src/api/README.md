@@ -133,3 +133,23 @@ export default defineMiddlewares({
 ```
 
 The `matcher` property can be either a string or a regular expression. The `middlewares` property accepts an array of middleware functions.
+
+## Internal OpenAPI docs
+
+This backend exposes internal API docs at:
+
+- `/internal/docs` (OpenAPI JSON)
+- `/internal/docs/ui` (Swagger UI)
+
+Docs routes are public for easier browser access. Other `/internal/*` routes remain protected by `x-api-key` and `INTERNAL_API_KEY`.
+
+### Keeping docs up to date
+
+The OpenAPI document is generated in `src/api/internal/docs/openapi.ts`.
+
+When adding or changing custom routes:
+
+1. Update the route handler under `src/api/**/route.ts`.
+2. Add or update the corresponding `registry.registerPath(...)` entry in `src/api/internal/docs/openapi.ts`.
+3. Reuse existing Zod schemas where possible (for example from route validators) to keep runtime validation and docs aligned.
+4. Verify in browser by opening `/internal/docs/ui` and checking request/response examples.

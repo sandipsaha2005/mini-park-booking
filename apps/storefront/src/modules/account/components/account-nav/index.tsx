@@ -12,6 +12,12 @@ import MapPin from "@modules/common/icons/map-pin"
 import Package from "@modules/common/icons/package"
 import User from "@modules/common/icons/user"
 
+const TicketIcon = ({ size = 20 }: { size?: number }) => (
+  <svg width={size} height={size} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 5v2m0 4v2m0 4v2M5 5a2 2 0 00-2 2v3a2 2 0 110 4v3a2 2 0 002 2h14a2 2 0 002-2v-3a2 2 0 110-4V7a2 2 0 00-2-2H5z" />
+  </svg>
+)
+
 const AccountNav = ({
   customer,
 }: {
@@ -62,6 +68,21 @@ const AccountNav = ({
                 </li>
                 <li>
                   <LocalizedClientLink
+                    href="/account/tickets"
+                    className="flex items-center justify-between py-4 border-b border-gray-200 px-8"
+                    data-testid="tickets-link"
+                  >
+                    <>
+                      <div className="flex items-center gap-x-2">
+                        <TicketIcon size={20} />
+                        <span>My Tickets</span>
+                      </div>
+                      <ChevronDown className="transform -rotate-90" />
+                    </>
+                  </LocalizedClientLink>
+                </li>
+                <li>
+                  <LocalizedClientLink
                     href="/account/addresses"
                     className="flex items-center justify-between py-4 border-b border-gray-200 px-8"
                     data-testid="addresses-link"
@@ -73,19 +94,6 @@ const AccountNav = ({
                       </div>
                       <ChevronDown className="transform -rotate-90" />
                     </>
-                  </LocalizedClientLink>
-                </li>
-                <li>
-                  <LocalizedClientLink
-                    href="/account/orders"
-                    className="flex items-center justify-between py-4 border-b border-gray-200 px-8"
-                    data-testid="orders-link"
-                  >
-                    <div className="flex items-center gap-x-2">
-                      <Package size={20} />
-                      <span>Orders</span>
-                    </div>
-                    <ChevronDown className="transform -rotate-90" />
                   </LocalizedClientLink>
                 </li>
                 <li>
@@ -115,39 +123,23 @@ const AccountNav = ({
           <div className="text-base-regular">
             <ul className="flex mb-0 justify-start items-start flex-col gap-y-4">
               <li>
-                <AccountNavLink
-                  href="/account"
-                  route={route!}
-                  data-testid="overview-link"
-                >
+                <AccountNavLink href="/account" route={route!} data-testid="overview-link">
                   Overview
                 </AccountNavLink>
               </li>
               <li>
-                <AccountNavLink
-                  href="/account/profile"
-                  route={route!}
-                  data-testid="profile-link"
-                >
+                <AccountNavLink href="/account/profile" route={route!} data-testid="profile-link">
                   Profile
                 </AccountNavLink>
               </li>
               <li>
-                <AccountNavLink
-                  href="/account/addresses"
-                  route={route!}
-                  data-testid="addresses-link"
-                >
-                  Addresses
+                <AccountNavLink href="/account/tickets" route={route!} data-testid="tickets-link">
+                  My Tickets
                 </AccountNavLink>
               </li>
               <li>
-                <AccountNavLink
-                  href="/account/orders"
-                  route={route!}
-                  data-testid="orders-link"
-                >
-                  Orders
+                <AccountNavLink href="/account/addresses" route={route!} data-testid="addresses-link">
+                  Addresses
                 </AccountNavLink>
               </li>
               <li className="text-grey-700">

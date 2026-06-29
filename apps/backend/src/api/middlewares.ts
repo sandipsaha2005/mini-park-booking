@@ -38,6 +38,10 @@ const requireApiKey = (
 export default defineMiddlewares({
     routes: [
         {
+            matcher: "/internal/docs*",
+            middlewares: [],
+        },
+        {
             matcher: "/bookings*",
             middlewares: [requestLogger]
         },
@@ -46,10 +50,18 @@ export default defineMiddlewares({
             middlewares: [requireApiKey]
         },
         {
+            matcher: "/store/tickets*",
+            middlewares: [],
+        },
+        {
             matcher: "/store/bookings*",
             middlewares: [
-                authenticate("customer", ["bearer", "session"]), 
+                authenticate("customer", ["bearer", "session"]),
             ],
+        },
+        {
+            matcher: /^\/internal\/(?!docs(?:\/|$)).*/,
+            middlewares: [requireApiKey],
         },
     ]
 })
